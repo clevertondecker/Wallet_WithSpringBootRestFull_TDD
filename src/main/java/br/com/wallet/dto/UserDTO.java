@@ -6,15 +6,15 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 @Data
+
 public class UserDTO {  //Data Transfer Object
-    
+
     private Long id;
-    @Email(message ="Email inválido")  // valida e-mail automcaticamente
+    @Email(message = "Email inválido")
     private String email;
-    @Length (min=3, max=50, message="Nome deve conter entre 3 e 50 caracteres")
+    @Length(min = 3, max = 50, message = "O nome deve conter entre 3 e 50 caracteres")
     private String name;
     @NotNull
-    @Length( min=6, message="Minino de 6 caracteres")
+    @Length(min = 6, message = "A senha deve conter no mínimo 6 caracteres")
     private String password;
-    
 }

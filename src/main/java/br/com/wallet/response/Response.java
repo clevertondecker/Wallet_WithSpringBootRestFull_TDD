@@ -5,22 +5,24 @@
  */
 package br.com.wallet.response;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- *
- * @author Ton
- */
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class Response<T> {   // <T> generics
-    
-    private T data;  //response do payload //sucesso
-    private List<String> erros;   // error
-    
+public class Response<T> {
+
+    private T data;
+    private List<String> errors;
+
+    public List<String> getErrors() {
+        if (this.errors == null) {
+            this.errors = new ArrayList<String>();
+        }
+        return errors;
+    }
 }
