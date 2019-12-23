@@ -24,12 +24,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("Test")
-
+@ActiveProfiles("test")
 public class UserControllerTest {
 
     private static final Long ID = 1L;
-    private static final String EMAIL = "test@test.com";
+    private static final String EMAIL = "email@teste.com";
     private static final String NAME = "User Test";
     private static final String PASSWORD = "123456";
     private static final String URL = "/user";
@@ -42,16 +41,18 @@ public class UserControllerTest {
 
     @Test
     public void testSave() throws Exception {
-        //end point
+
         BDDMockito.given(service.save(Mockito.any(User.class))).willReturn(getMockUser());
-        mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayload(ID, EMAIL, NAME, PASSWORD)) //Chamando um post no "/User" e passando no body/payload o retorno do metodo getJsonPayload
+
+        mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayload(ID, EMAIL, NAME, PASSWORD))
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)) //aceita json
-                .andExpect(status().isCreated()) //espera o retorno 201
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.id").value(ID))
                 .andExpect(jsonPath("$.data.email").value(EMAIL))
                 .andExpect(jsonPath("$.data.name").value(NAME))
                 .andExpect(jsonPath("$.data.password").doesNotExist());
+
     }
 
     @Test
@@ -75,15 +76,15 @@ public class UserControllerTest {
         return u;
     }
 
-    //JsonProcessingException caso nao consiga converter o DTO para JSON
     public String getJsonPayload(Long id, String email, String name, String password) throws JsonProcessingException {
+
         UserDTO dto = new UserDTO();
         dto.setId(id);
         dto.setEmail(email);
         dto.setName(name);
         dto.setPassword(password);
 
-        ObjectMapper mapper = new ObjectMapper();   //Convert DTO para String em JSON
-        return mapper.writeValueAsString(dto);             //Convert DTO para String em JSON
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(dto);
     }
 }

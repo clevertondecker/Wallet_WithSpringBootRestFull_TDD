@@ -1,11 +1,13 @@
 package br.com.wallet.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL) // nao adiciona valores nulos
 
 public class UserDTO {  //Data Transfer Object
 
@@ -17,4 +19,6 @@ public class UserDTO {  //Data Transfer Object
     @NotNull
     @Length(min = 6, message = "A senha deve conter no mínimo 6 caracteres")
     private String password;
+
+
 }

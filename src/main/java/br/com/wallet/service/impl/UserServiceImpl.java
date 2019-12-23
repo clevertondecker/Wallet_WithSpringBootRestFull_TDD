@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.wallet.impl;
+package br.com.wallet.service.impl;
 
 
 import br.com.wallet.entity.User;

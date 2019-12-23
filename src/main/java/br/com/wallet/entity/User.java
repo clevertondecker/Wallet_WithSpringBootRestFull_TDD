@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.wallet.entity;
 
 import java.io.Serializable;
@@ -14,19 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 
-/**
- *
- * @author Ton
- */
+
 @Entity  // classe
 @Data //lombok
 @Table(name= "users")
 
 public class User implements Serializable{
     
-    private static final long serialVersionUID = 1L;
     
-    @Id
+	private static final long serialVersionUID = -2213778288545447817L;
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto generate ID
     private long id;
     @Column(nullable=false)
