@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.com.wallet.serviceTest;
+package br.com.wallet.service;
 
 import br.com.wallet.repository.UserRepository;
 import br.com.wallet.entity.User;
@@ -23,10 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
-/**
- *
- * @author Ton
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
