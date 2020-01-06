@@ -45,7 +45,7 @@ public class WalletItemController {
 	private WalletItemService service;
 	@Autowired
 	private UserWalletService userWalletService;
-	
+
 	private static final Logger log = LoggerFactory.getLogger(WalletItemController.class);
 
 	@PostMapping
@@ -70,9 +70,16 @@ public class WalletItemController {
 			@RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate,
 			@RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate,
 			@RequestParam(name = "page", defaultValue = "0") int page) {
-		
+
 		Response<Page<WalletItemDTO>> response = new Response<Page<WalletItemDTO>>();
-				
+
+		Optional<UserWallet> uw = userWalletService.findByUsersIdAndWalletId(Util.getAuthenticatedUserId(), wallet);
+
+		if (!uw.isPresent()) {
+			response.getErrors().add("Você não tem acesso a essa carteira");
+			return ResponseEntity.badRequest().body(response);
+		}
+
 		Page<WalletItem> items = service.findBetweenDates(wallet, startDate, endDate, page);
 		Page<WalletItemDTO> dto = items.map(i -> this.convertEntityToDto(i));
 		response.setData(dto);
@@ -82,9 +89,9 @@ public class WalletItemController {
 	@GetMapping(value = "/type/{wallet}")
 	public ResponseEntity<Response<List<WalletItemDTO>>> findByWalletIdAndType(@PathVariable("wallet") Long wallet,
 			@RequestParam("type") String type) {
-		
+
 		log.info("Buscando por carteira {} e tipo {}", wallet, type);
-		
+
 		Response<List<WalletItemDTO>> response = new Response<List<WalletItemDTO>>();
 		List<WalletItem> list = service.findByWalletAndType(wallet, TypeEnum.getEnum(type));
 
@@ -114,7 +121,7 @@ public class WalletItemController {
 		if (!wi.isPresent()) {
 			result.addError(new ObjectError("WalletItem", "WalletItem não encontrado"));
 		} else if (wi.get().getWallet().getId().compareTo(dto.getWallet()) != 0) {
-				result.addError(new ObjectError("WalletItemChanged", "Você não pode alterar a carteira"));
+			result.addError(new ObjectError("WalletItemChanged", "Você não pode alterar a carteira"));
 		}
 
 		if (result.hasErrors()) {
@@ -139,9 +146,9 @@ public class WalletItemController {
 			response.getErrors().add("WalletItem de id " + walletItemId + " não encontrada");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 		}
-		
+
 		service.deleteById(walletItemId);
-		response.setData("WalletItem de id "+ walletItemId + " apagada com sucesso");
+		response.setData("WalletItem de id " + walletItemId + " apagada com sucesso");
 		return ResponseEntity.ok().body(response);
 	}
 
