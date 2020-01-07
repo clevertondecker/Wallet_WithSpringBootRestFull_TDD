@@ -51,8 +51,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		return new JwtAuthenticationTokenFilter();
 	}
 	
-	
-	
     @Override
     protected void configure(HttpSecurity http) throws Exception{
     	http.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import br.com.wallet.security.utils.JwtTokenUtil;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,7 +18,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 
 @Configuration
 @Profile("dev")
@@ -31,14 +31,16 @@ public class SwaggerConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("br.com.wallet.controller"))
-				.paths(PathSelectors.any()).build()
-				.apiInfo(apiInfo());
-	}
-
+	 @Bean
+	    public Docket api() { 
+	        return new Docket(DocumentationType.SWAGGER_2)  
+	          .select()                                  
+	          .apis(RequestHandlerSelectors.any())              
+	          .paths(PathSelectors.any())                          
+	          .build();    
+	 }
+	        	
+	        
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Wallet API")
 				.description("Wallet API - Documentação de acesso aos endpoints.").version("1.0")
