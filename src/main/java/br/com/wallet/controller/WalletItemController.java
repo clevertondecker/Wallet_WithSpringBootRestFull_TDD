@@ -70,16 +70,17 @@ public class WalletItemController {
 			@RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date startDate,
 			@RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date endDate,
 			@RequestParam(name = "page", defaultValue = "0") int page) {
-
+		
 		Response<Page<WalletItemDTO>> response = new Response<Page<WalletItemDTO>>();
-
+		
+		
 		Optional<UserWallet> uw = userWalletService.findByUsersIdAndWalletId(Util.getAuthenticatedUserId(), wallet);
-
+		
 		if (!uw.isPresent()) {
 			response.getErrors().add("Você não tem acesso a essa carteira");
 			return ResponseEntity.badRequest().body(response);
 		}
-
+		
 		Page<WalletItem> items = service.findBetweenDates(wallet, startDate, endDate, page);
 		Page<WalletItemDTO> dto = items.map(i -> this.convertEntityToDto(i));
 		response.setData(dto);
