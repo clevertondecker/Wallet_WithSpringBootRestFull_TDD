@@ -9,11 +9,11 @@
 		<version>2.2.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.wallet</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.wallet</groupId>
+	<artifactId>wallet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>br.com.wallet</name>
-	<description>project for Spring Boot</description>
+	<name>wallet</name>
+	<description>API para controle de carteira</description>
 
 
 	<dependencies>
