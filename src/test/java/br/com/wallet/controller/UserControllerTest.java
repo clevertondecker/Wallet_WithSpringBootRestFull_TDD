@@ -77,7 +77,7 @@ public class UserControllerTest {
         u.setPassword(PASSWORD);
         u.setRole(RoleEnum.ROLE_ADMIN);
         
-        return u;
+        return u; 
     }
 
     public String getJsonPayload(Long id, String email, String name, String password) throws JsonProcessingException {
@@ -91,5 +91,6 @@ public class UserControllerTest {
         
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dto);
+        
     }
 }
