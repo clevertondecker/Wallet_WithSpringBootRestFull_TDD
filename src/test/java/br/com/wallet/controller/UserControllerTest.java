@@ -91,5 +91,6 @@ public class UserControllerTest {
         
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dto);
+        
     }
 }
